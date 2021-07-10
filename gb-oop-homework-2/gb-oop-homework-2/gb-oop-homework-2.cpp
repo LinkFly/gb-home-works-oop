@@ -39,23 +39,31 @@ public:
         this->weight = weight;
     }
 
-    auto getName() { return name; }
-    auto getAge() { return age; }
-    auto getGender() { return gender; }
-    auto getWeight() { return weight; }
+    auto getName() const { return name; }
+    auto getAge() const { return age; }
+    auto getGender() const { return gender; }
+    auto getWeight() const { return weight; }
 
 };
 
 class Student: public Person {
     uint8_t yearsOfStudy;
-public:
     static uint32_t studentsCount;
+public:
+    static auto getStudentCount() {
+        return studentsCount;
+    }
     Student(const string& name, uint8_t age, Person::EGender gender, uint16_t weight, uint8_t yearsOfStudy = 0)
         : Person(name, age, gender, yearsOfStudy)
     {
         this->yearsOfStudy = yearsOfStudy;
         ++studentsCount;
     }
+    
+    ~Student() {
+        --studentsCount;
+    }
+
     void setYearsOfStudy(uint8_t years) {
         yearsOfStudy = years;
     }
@@ -235,6 +243,7 @@ int main()
 	std::cout << "My " << b.getName() << " is " << b.getColor() << ".\n";
 	std::cout << "My " << c.getName() << " is " << c.getColor() << ".\n";
 
-    // Task3
-    cout << "Task3:\n----------------------\n";
+    // Some checking
+    cout << "\nSome checking:\n----------------------\n";
+    cout << "Students count: " << Student::getStudentCount() << endl;
 }
